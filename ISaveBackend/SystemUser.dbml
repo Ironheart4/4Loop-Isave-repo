@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EnergyAppDB" Class="SystemUserDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\EnergyAppDB.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EnergyAppDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DeviceType" Member="DeviceTypes">
+    <Type Name="DeviceType">
+      <Column Name="DeviceTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TypicalPowerW" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypicalUsageHours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DeviceType_Product" Member="Products" ThisKey="DeviceTypeID" OtherKey="ReplacementFor" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReplacementFor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PowerWattage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageURL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Product_UserProduct" Member="UserProducts" ThisKey="ProductID" OtherKey="ProductID" Type="UserProduct" />
+      <Association Name="DeviceType_Product" Member="DeviceType" ThisKey="ReplacementFor" OtherKey="DeviceTypeID" Type="DeviceType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysUsers" Member="SysUsers">
+    <Type Name="SysUser">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="SysUser_UserProduct" Member="UserProducts" ThisKey="UserID" OtherKey="UserID" Type="UserProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserProducts" Member="UserProducts">
+    <Type Name="UserProduct">
+      <Column Name="UserProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PurchaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_UserProduct" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="SysUser_UserProduct" Member="SysUser" ThisKey="UserID" OtherKey="UserID" Type="SysUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
