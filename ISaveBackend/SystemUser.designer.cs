@@ -33,15 +33,15 @@ namespace ISaveBackend
     partial void InsertDeviceType(DeviceType instance);
     partial void UpdateDeviceType(DeviceType instance);
     partial void DeleteDeviceType(DeviceType instance);
+    partial void InsertProduct(Product instance);
+    partial void UpdateProduct(Product instance);
+    partial void DeleteProduct(Product instance);
     partial void InsertSysUser(SysUser instance);
     partial void UpdateSysUser(SysUser instance);
     partial void DeleteSysUser(SysUser instance);
     partial void InsertUserProduct(UserProduct instance);
     partial void UpdateUserProduct(UserProduct instance);
     partial void DeleteUserProduct(UserProduct instance);
-    partial void InsertProduct(Product instance);
-    partial void UpdateProduct(Product instance);
-    partial void DeleteProduct(Product instance);
     #endregion
 		
 		public SystemUserDataContext() : 
@@ -82,6 +82,14 @@ namespace ISaveBackend
 			}
 		}
 		
+		public System.Data.Linq.Table<Product> Products
+		{
+			get
+			{
+				return this.GetTable<Product>();
+			}
+		}
+		
 		public System.Data.Linq.Table<SysUser> SysUsers
 		{
 			get
@@ -95,14 +103,6 @@ namespace ISaveBackend
 			get
 			{
 				return this.GetTable<UserProduct>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Product> Products
-		{
-			get
-			{
-				return this.GetTable<Product>();
 			}
 		}
 	}
@@ -121,7 +121,7 @@ namespace ISaveBackend
 		
 		private System.Nullable<int> _TypicalPowerW;
 		
-		private System.Nullable<int> _TypicalUsageHours;
+		private System.Nullable<decimal> _TypicalUsageHours;
 		
 		private EntitySet<Product> _Products;
 		
@@ -137,7 +137,7 @@ namespace ISaveBackend
     partial void OnCategoryChanged();
     partial void OnTypicalPowerWChanging(System.Nullable<int> value);
     partial void OnTypicalPowerWChanged();
-    partial void OnTypicalUsageHoursChanging(System.Nullable<int> value);
+    partial void OnTypicalUsageHoursChanging(System.Nullable<decimal> value);
     partial void OnTypicalUsageHoursChanged();
     #endregion
 		
@@ -227,8 +227,8 @@ namespace ISaveBackend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypicalUsageHours", DbType="Int")]
-		public System.Nullable<int> TypicalUsageHours
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypicalUsageHours", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> TypicalUsageHours
 		{
 			get
 			{
@@ -290,6 +290,329 @@ namespace ISaveBackend
 		{
 			this.SendPropertyChanging();
 			entity.DeviceType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Product")]
+	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ProductID;
+		
+		private string _Name;
+		
+		private string _Category;
+		
+		private System.Nullable<int> _ReplacementFor;
+		
+		private System.Nullable<decimal> _PowerWattage;
+		
+		private System.Nullable<decimal> _Capacity;
+		
+		private System.Nullable<decimal> _Price;
+		
+		private string _Link;
+		
+		private string _ImageURL;
+		
+		private EntitySet<UserProduct> _UserProducts;
+		
+		private EntityRef<DeviceType> _DeviceType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProductIDChanging(int value);
+    partial void OnProductIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnCategoryChanging(string value);
+    partial void OnCategoryChanged();
+    partial void OnReplacementForChanging(System.Nullable<int> value);
+    partial void OnReplacementForChanged();
+    partial void OnPowerWattageChanging(System.Nullable<decimal> value);
+    partial void OnPowerWattageChanged();
+    partial void OnCapacityChanging(System.Nullable<decimal> value);
+    partial void OnCapacityChanged();
+    partial void OnPriceChanging(System.Nullable<decimal> value);
+    partial void OnPriceChanged();
+    partial void OnLinkChanging(string value);
+    partial void OnLinkChanged();
+    partial void OnImageURLChanging(string value);
+    partial void OnImageURLChanged();
+    #endregion
+		
+		public Product()
+		{
+			this._UserProducts = new EntitySet<UserProduct>(new Action<UserProduct>(this.attach_UserProducts), new Action<UserProduct>(this.detach_UserProducts));
+			this._DeviceType = default(EntityRef<DeviceType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ProductID
+		{
+			get
+			{
+				return this._ProductID;
+			}
+			set
+			{
+				if ((this._ProductID != value))
+				{
+					this.OnProductIDChanging(value);
+					this.SendPropertyChanging();
+					this._ProductID = value;
+					this.SendPropertyChanged("ProductID");
+					this.OnProductIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(150) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
+		public string Category
+		{
+			get
+			{
+				return this._Category;
+			}
+			set
+			{
+				if ((this._Category != value))
+				{
+					this.OnCategoryChanging(value);
+					this.SendPropertyChanging();
+					this._Category = value;
+					this.SendPropertyChanged("Category");
+					this.OnCategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReplacementFor", DbType="Int")]
+		public System.Nullable<int> ReplacementFor
+		{
+			get
+			{
+				return this._ReplacementFor;
+			}
+			set
+			{
+				if ((this._ReplacementFor != value))
+				{
+					if (this._DeviceType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReplacementForChanging(value);
+					this.SendPropertyChanging();
+					this._ReplacementFor = value;
+					this.SendPropertyChanged("ReplacementFor");
+					this.OnReplacementForChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PowerWattage", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> PowerWattage
+		{
+			get
+			{
+				return this._PowerWattage;
+			}
+			set
+			{
+				if ((this._PowerWattage != value))
+				{
+					this.OnPowerWattageChanging(value);
+					this.SendPropertyChanging();
+					this._PowerWattage = value;
+					this.SendPropertyChanged("PowerWattage");
+					this.OnPowerWattageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Capacity", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> Capacity
+		{
+			get
+			{
+				return this._Capacity;
+			}
+			set
+			{
+				if ((this._Capacity != value))
+				{
+					this.OnCapacityChanging(value);
+					this.SendPropertyChanging();
+					this._Capacity = value;
+					this.SendPropertyChanged("Capacity");
+					this.OnCapacityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="NVarChar(MAX)")]
+		public string Link
+		{
+			get
+			{
+				return this._Link;
+			}
+			set
+			{
+				if ((this._Link != value))
+				{
+					this.OnLinkChanging(value);
+					this.SendPropertyChanging();
+					this._Link = value;
+					this.SendPropertyChanged("Link");
+					this.OnLinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageURL", DbType="NVarChar(MAX)")]
+		public string ImageURL
+		{
+			get
+			{
+				return this._ImageURL;
+			}
+			set
+			{
+				if ((this._ImageURL != value))
+				{
+					this.OnImageURLChanging(value);
+					this.SendPropertyChanging();
+					this._ImageURL = value;
+					this.SendPropertyChanged("ImageURL");
+					this.OnImageURLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_UserProduct", Storage="_UserProducts", ThisKey="ProductID", OtherKey="ProductID")]
+		public EntitySet<UserProduct> UserProducts
+		{
+			get
+			{
+				return this._UserProducts;
+			}
+			set
+			{
+				this._UserProducts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DeviceType_Product", Storage="_DeviceType", ThisKey="ReplacementFor", OtherKey="DeviceTypeID", IsForeignKey=true)]
+		public DeviceType DeviceType
+		{
+			get
+			{
+				return this._DeviceType.Entity;
+			}
+			set
+			{
+				DeviceType previousValue = this._DeviceType.Entity;
+				if (((previousValue != value) 
+							|| (this._DeviceType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DeviceType.Entity = null;
+						previousValue.Products.Remove(this);
+					}
+					this._DeviceType.Entity = value;
+					if ((value != null))
+					{
+						value.Products.Add(this);
+						this._ReplacementFor = value.DeviceTypeID;
+					}
+					else
+					{
+						this._ReplacementFor = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("DeviceType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UserProducts(UserProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = this;
+		}
+		
+		private void detach_UserProducts(UserProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = null;
 		}
 	}
 	
@@ -495,9 +818,9 @@ namespace ISaveBackend
 		
 		private System.Nullable<System.DateTime> _PurchaseDate;
 		
-		private EntityRef<SysUser> _SysUser;
-		
 		private EntityRef<Product> _Product;
+		
+		private EntityRef<SysUser> _SysUser;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -517,8 +840,8 @@ namespace ISaveBackend
 		
 		public UserProduct()
 		{
-			this._SysUser = default(EntityRef<SysUser>);
 			this._Product = default(EntityRef<Product>);
+			this._SysUser = default(EntityRef<SysUser>);
 			OnCreated();
 		}
 		
@@ -630,40 +953,6 @@ namespace ISaveBackend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SysUser_UserProduct", Storage="_SysUser", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
-		public SysUser SysUser
-		{
-			get
-			{
-				return this._SysUser.Entity;
-			}
-			set
-			{
-				SysUser previousValue = this._SysUser.Entity;
-				if (((previousValue != value) 
-							|| (this._SysUser.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SysUser.Entity = null;
-						previousValue.UserProducts.Remove(this);
-					}
-					this._SysUser.Entity = value;
-					if ((value != null))
-					{
-						value.UserProducts.Add(this);
-						this._UserID = value.UserID;
-					}
-					else
-					{
-						this._UserID = default(int);
-					}
-					this.SendPropertyChanged("SysUser");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_UserProduct", Storage="_Product", ThisKey="ProductID", OtherKey="ProductID", IsForeignKey=true)]
 		public Product Product
 		{
@@ -698,289 +987,36 @@ namespace ISaveBackend
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Products")]
-	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ProductID;
-		
-		private string _Name;
-		
-		private string _Category;
-		
-		private System.Nullable<int> _ReplacementFor;
-		
-		private System.Nullable<int> _PowerWattage;
-		
-		private System.Nullable<decimal> _Price;
-		
-		private string _Link;
-		
-		private string _ImageURL;
-		
-		private EntitySet<UserProduct> _UserProducts;
-		
-		private EntityRef<DeviceType> _DeviceType;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnProductIDChanging(int value);
-    partial void OnProductIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnCategoryChanging(string value);
-    partial void OnCategoryChanged();
-    partial void OnReplacementForChanging(System.Nullable<int> value);
-    partial void OnReplacementForChanged();
-    partial void OnPowerWattageChanging(System.Nullable<int> value);
-    partial void OnPowerWattageChanged();
-    partial void OnPriceChanging(System.Nullable<decimal> value);
-    partial void OnPriceChanged();
-    partial void OnLinkChanging(string value);
-    partial void OnLinkChanged();
-    partial void OnImageURLChanging(string value);
-    partial void OnImageURLChanged();
-    #endregion
-		
-		public Product()
-		{
-			this._UserProducts = new EntitySet<UserProduct>(new Action<UserProduct>(this.attach_UserProducts), new Action<UserProduct>(this.detach_UserProducts));
-			this._DeviceType = default(EntityRef<DeviceType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ProductID
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SysUser_UserProduct", Storage="_SysUser", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		public SysUser SysUser
 		{
 			get
 			{
-				return this._ProductID;
+				return this._SysUser.Entity;
 			}
 			set
 			{
-				if ((this._ProductID != value))
-				{
-					this.OnProductIDChanging(value);
-					this.SendPropertyChanging();
-					this._ProductID = value;
-					this.SendPropertyChanged("ProductID");
-					this.OnProductIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(150) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
-		public string Category
-		{
-			get
-			{
-				return this._Category;
-			}
-			set
-			{
-				if ((this._Category != value))
-				{
-					this.OnCategoryChanging(value);
-					this.SendPropertyChanging();
-					this._Category = value;
-					this.SendPropertyChanged("Category");
-					this.OnCategoryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReplacementFor", DbType="Int")]
-		public System.Nullable<int> ReplacementFor
-		{
-			get
-			{
-				return this._ReplacementFor;
-			}
-			set
-			{
-				if ((this._ReplacementFor != value))
-				{
-					if (this._DeviceType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnReplacementForChanging(value);
-					this.SendPropertyChanging();
-					this._ReplacementFor = value;
-					this.SendPropertyChanged("ReplacementFor");
-					this.OnReplacementForChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PowerWattage", DbType="Int")]
-		public System.Nullable<int> PowerWattage
-		{
-			get
-			{
-				return this._PowerWattage;
-			}
-			set
-			{
-				if ((this._PowerWattage != value))
-				{
-					this.OnPowerWattageChanging(value);
-					this.SendPropertyChanging();
-					this._PowerWattage = value;
-					this.SendPropertyChanged("PowerWattage");
-					this.OnPowerWattageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> Price
-		{
-			get
-			{
-				return this._Price;
-			}
-			set
-			{
-				if ((this._Price != value))
-				{
-					this.OnPriceChanging(value);
-					this.SendPropertyChanging();
-					this._Price = value;
-					this.SendPropertyChanged("Price");
-					this.OnPriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Link", DbType="NVarChar(MAX)")]
-		public string Link
-		{
-			get
-			{
-				return this._Link;
-			}
-			set
-			{
-				if ((this._Link != value))
-				{
-					this.OnLinkChanging(value);
-					this.SendPropertyChanging();
-					this._Link = value;
-					this.SendPropertyChanged("Link");
-					this.OnLinkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageURL", DbType="NVarChar(MAX)")]
-		public string ImageURL
-		{
-			get
-			{
-				return this._ImageURL;
-			}
-			set
-			{
-				if ((this._ImageURL != value))
-				{
-					this.OnImageURLChanging(value);
-					this.SendPropertyChanging();
-					this._ImageURL = value;
-					this.SendPropertyChanged("ImageURL");
-					this.OnImageURLChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_UserProduct", Storage="_UserProducts", ThisKey="ProductID", OtherKey="ProductID")]
-		public EntitySet<UserProduct> UserProducts
-		{
-			get
-			{
-				return this._UserProducts;
-			}
-			set
-			{
-				this._UserProducts.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DeviceType_Product", Storage="_DeviceType", ThisKey="ReplacementFor", OtherKey="DeviceTypeID", IsForeignKey=true)]
-		public DeviceType DeviceType
-		{
-			get
-			{
-				return this._DeviceType.Entity;
-			}
-			set
-			{
-				DeviceType previousValue = this._DeviceType.Entity;
+				SysUser previousValue = this._SysUser.Entity;
 				if (((previousValue != value) 
-							|| (this._DeviceType.HasLoadedOrAssignedValue == false)))
+							|| (this._SysUser.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._DeviceType.Entity = null;
-						previousValue.Products.Remove(this);
+						this._SysUser.Entity = null;
+						previousValue.UserProducts.Remove(this);
 					}
-					this._DeviceType.Entity = value;
+					this._SysUser.Entity = value;
 					if ((value != null))
 					{
-						value.Products.Add(this);
-						this._ReplacementFor = value.DeviceTypeID;
+						value.UserProducts.Add(this);
+						this._UserID = value.UserID;
 					}
 					else
 					{
-						this._ReplacementFor = default(Nullable<int>);
+						this._UserID = default(int);
 					}
-					this.SendPropertyChanged("DeviceType");
+					this.SendPropertyChanged("SysUser");
 				}
 			}
 		}
@@ -1003,18 +1039,6 @@ namespace ISaveBackend
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_UserProducts(UserProduct entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_UserProducts(UserProduct entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
 		}
 	}
 }

@@ -62,7 +62,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\EnergyAppDB.mdf" />
+    <Compile Include="App_Data\EnergyAppDB.mdf" />
     <Content Include="App_Data\EnergyAppDB_log.ldf">
       <DependentUpon>EnergyAppDB.mdf</DependentUpon>
     </Content>

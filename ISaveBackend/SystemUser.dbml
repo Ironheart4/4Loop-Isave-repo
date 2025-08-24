@@ -6,8 +6,23 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="TypicalPowerW" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TypicalUsageHours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypicalUsageHours" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Association Name="DeviceType_Product" Member="Products" ThisKey="DeviceTypeID" OtherKey="ReplacementFor" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReplacementFor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PowerWattage" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Capacity" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageURL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Product_UserProduct" Member="UserProducts" ThisKey="ProductID" OtherKey="ProductID" Type="UserProduct" />
+      <Association Name="DeviceType_Product" Member="DeviceType" ThisKey="ReplacementFor" OtherKey="DeviceTypeID" Type="DeviceType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SysUsers" Member="SysUsers">
@@ -27,22 +42,8 @@
       <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PurchaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SysUser_UserProduct" Member="SysUser" ThisKey="UserID" OtherKey="UserID" Type="SysUser" IsForeignKey="true" />
       <Association Name="Product_UserProduct" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Products" Member="Products">
-    <Type Name="Product">
-      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ReplacementFor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PowerWattage" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="Link" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ImageURL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Product_UserProduct" Member="UserProducts" ThisKey="ProductID" OtherKey="ProductID" Type="UserProduct" />
-      <Association Name="DeviceType_Product" Member="DeviceType" ThisKey="ReplacementFor" OtherKey="DeviceTypeID" Type="DeviceType" IsForeignKey="true" />
+      <Association Name="SysUser_UserProduct" Member="SysUser" ThisKey="UserID" OtherKey="UserID" Type="SysUser" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

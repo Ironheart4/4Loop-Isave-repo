@@ -1,0 +1,7 @@
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\bin\ISaveBackend.dll.config
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\bin\ISaveBackend.dll
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\bin\ISaveBackend.pdb
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\obj\Debug\ISaveBackend.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\obj\Debug\ISaveBackend.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\obj\Debug\ISaveBackend.dll
+C:\Users\user\Desktop\4Loop-Isave-repo\ISaveBackend\obj\Debug\ISaveBackend.pdb
