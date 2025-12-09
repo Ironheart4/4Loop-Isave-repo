@@ -1,0 +1,177 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="iSave_FrontEnd.Main" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSave</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+            <div class="container-fluid">
+                <!-- Logo Left -->
+                <a class="navbar-brand d-flex align-items-center" href="Home.aspx">
+                    <div class="logo-box me-2">
+                        <i class="bi bi-leaf"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h5>iSave</h5>
+                        <p>Smart Energy Solutions</p>
+                    </div>
+                </a>
+                <!-- Toggle Button (Mobile) -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navbar Content -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Nav Links -->
+                    <ul class="navbar-nav mx-auto d-flex gap-4 nav-underline">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Home.aspx" id="homeId" runat="server">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Products.aspx" id="productsID" runat="server" >Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.aspx" id="aboutId" runat="server">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Contact.aspx" id="contactId" runat="server">Contact</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="Dashboard.aspx" id="dashboardID" runat="server">Dashboard</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="AdminDashboard.aspx" id="AdminDashID" runat="server">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Admin.aspx" id="adminID" runat="server">Add products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="AdminProduct.aspx" id="AdminProductID" runat="server">View Product</a>
+                        </li>
+                    </ul>
+                    <!-- Buttons -->
+                    <div class="d-flex">
+                        <a class="btn btn-outline-warning d-inline-flex align-items-center me-2" href="Calculator.aspx"  id="calculatorID" runat="server" role="button">
+                            <i class="bi bi-calculator me-2"></i>Calculate Savings
+                        </a>
+                        <a class="btn btn-outline-secondary d-inline-flex align-items-center me-2" href="Login.aspx" id="singinID" runat="server" role="button">
+                            <i class="bi bi-person-square me-2" ></i>Sign In
+                        </a>
+                        <a class="btn btn-outline-secondary d-inline-flex align-items-center me-2" href="LogOut.aspx" id="signoutID" runat="server" role="button" visible="false">
+                            <i class="bi bi-person-square me-2" ></i>Sign Out
+                        </a>
+                        <a class="btn btn-success d-inline-flex align-items-center" href="Products.aspx" id="shopnowId" runat="server" role="button">
+                            <i class="bi bi-cart-plus-fill me-2" ></i>Shop Now
+                        </a>
+                         <a class="btn btn-success d-inline-flex align-items-center" href="Cart.aspx" id="CartId" runat="server" role="button">
+                            <i class="bi bi-basket-fill me-2" ></i>Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        <footer class="bg-dark text-white py-5 px-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <a class="navbar-brand d-flex align-items-center" href="#">
+                            <div class="logo-box me-2">
+                                <i class="bi bi-leaf"></i>
+                            </div>
+                            <div class="logo-text">
+                                <h5 class="text-white">iSave</h5>
+                                <p>Smart Energy Solutions</p>
+                            </div>
+                        </a>
+                        <p class="fw-lighter fs-6">
+                            Making energy-efficient living accessible and affordable for everyone.<br>
+                            Save
+            energy, save money, and save the planet.
+                        </p>
+                        <div class="d-flex mt-0">
+                            <i class="bi bi-facebook me-3 fs-4"></i>
+                            <i class="bi bi-instagram fs-4 me-3"></i>
+                            <i class="bi bi-linkedin fs-4"></i>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5>Quick Links</h5>
+                        <div class="col" id="links">
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Home.aspx">Home</a></div>
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="About.aspx">About</a></div>
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Products.aspx">Products</a></div>
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Contact.aspx">Contact</a></div>
+                            <div class="row"><a class="nav-link fw-lighter" href="Calculator.aspx">Saving Calculator</a></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5>Categories</h5>
+                        <div class="col" id="links">
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Products.aspx">LED Lights</a></div>
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Products.aspx">Solar Panels</a></div>
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Products.aspx">Smart Thermostats</a></div>
+                            <div class="row mb-2"><a class="nav-link fw-lighter" href="Products.aspx">Smart Plugs</a></div>
+                            <div class="row"><a class="nav-link fw-lighter" href="Products.aspx">Insulation</a></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5>Contact Us</h5>
+                        <div class="col" id="links">
+                            <div class="row mb-2">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-envelope me-2 text-success"></i>
+                                    <p class="mb-0 fw-bold">Email</p>
+                                </div>
+                                <p class="ms-4 fw-lighter">support@isave.com</p>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-telephone-fill me-2 text-success"></i>
+                                    <p class="mb-0 fw-bold">Phone</p>
+                                </div>
+                                <p class="ms-4 fw-lighter">+1 (555) 123-4567
+                                    <br>
+                                    Mon-Fri, 9AM-6PM EST </p>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-clock me-2 text-success"></i>
+                                    <p class="mb-0 fw-bold">Business Hours</p>
+                                </div>
+                                <p class="ms-4 fw-lighter">
+                                    Monday - Friday: 9:00 AM - 6:00 PM
+                                    <br>
+                                    Saturday: 10:00 AM - 4:00 PM
+                                    <br>
+                                    Sunday:
+                Closed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+    </form>
+</body>
+</html>
